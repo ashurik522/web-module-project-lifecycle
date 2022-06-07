@@ -84,7 +84,14 @@ export default class App extends React.Component {
   completeTodo(){
 
   }
-
+  handleItemsCompleted = () => {
+    const newItem = this.state.toDos.filter(item=> {
+      return(!item.completed)
+    })
+    this.setState({
+      toDos: newItem
+    })
+  }
 
 
   render() {
@@ -105,7 +112,7 @@ export default class App extends React.Component {
           onClick={this.toggleHideCompleted}>
           {`${status ? 'Show Completed' : 'Hide Completed'}`}
         </button>
-        <button>Remove Completed</button>
+        <button onClick={this.handleItemsCompleted}>Remove Completed</button>
       </div>
     )
   }
