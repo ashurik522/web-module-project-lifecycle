@@ -39,7 +39,7 @@ export default class App extends React.Component {
       .then(res=>{
         console.log(res)
         this.setState({
-          toDos: [...this.state.toDos, newItem]
+          toDos: [...this.state.toDos, res.data.data]
         })
       })
       .catch(err => console.error(err))
@@ -47,16 +47,23 @@ export default class App extends React.Component {
     
   }
 
+  // {...item, completed: !item.completed}
+
   toggleItem = (itemId) => {
-    this.setState({
-      ...this.state,
-      toDos: this.state.toDos.map(item => {
-        if(itemId === item.id){
-          return {...item, completed: !item.completed}
-        }
-        return item;
+    axios.patch(`http://localhost:9000/api/todos/${itemId}`)
+      .then(res=>{
+        console.log(res.data)
+        this.setState({
+          ...this.state.toDos,
+          toDos: this.state.toDos.map(item => {
+            if(itemId === item.id){
+              return res.data.data
+            }
+            return item;
+          })
+        })
       })
-    })
+      .catch(err => console.error(err))
   }
 
   toggleHideCompleted = () => {
@@ -65,6 +72,10 @@ export default class App extends React.Component {
       hideCompleted: !this.state.hideCompleted,
       status: !this.state.status
     })
+  }
+
+  completeTodo(){
+
   }
 
 
