@@ -35,9 +35,16 @@ export default class App extends React.Component {
       completed: false
     }
 
-    this.setState({
-      toDos: [...this.state.toDos, newItem]
-    })
+    axios.post(URL, newItem)
+      .then(res=>{
+        console.log(res)
+        this.setState({
+          toDos: [...this.state.toDos, newItem]
+        })
+      })
+      .catch(err => console.error(err))
+
+    
   }
 
   toggleItem = (itemId) => {
