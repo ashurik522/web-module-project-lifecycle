@@ -22,15 +22,17 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input 
-          type="text"
-          name="item"
-          onChange={this.handleChange}
-          value={this.state.itemText}
-        />
-        <button>Add</button>
-      </form>
+      <div className='formContainer'>
+        <form onSubmit={this.handleSubmit}>
+          <input 
+            type="text"
+            name="item"
+            onChange={this.handleChange}
+            value={this.state.itemText}
+          />
+          <button>Add</button>
+        </form>
+      </div>
     )
   }
 }

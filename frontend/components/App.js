@@ -52,7 +52,6 @@ export default class App extends React.Component {
   toggleItem = (itemId) => {
     axios.patch(`http://localhost:9000/api/todos/${itemId}`)
       .then(res=>{
-        console.log(res.data)
         this.setState({
           ...this.state.toDos,
           toDos: this.state.toDos.map(item => {
@@ -62,6 +61,14 @@ export default class App extends React.Component {
             return item;
           })
         })
+      })
+      .catch(err => console.error(err))
+  }
+
+  deleteCompleted = (itemId)=> {
+    axios.delete(`http://localhost:9000/api/todos/${itemId}`)
+      .then(res => {
+        
       })
       .catch(err => console.error(err))
   }
@@ -98,6 +105,7 @@ export default class App extends React.Component {
           onClick={this.toggleHideCompleted}>
           {`${status ? 'Show Completed' : 'Hide Completed'}`}
         </button>
+        <button>Remove Completed</button>
       </div>
     )
   }
